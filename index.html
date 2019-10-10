@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js">
+  <link rel="stylesheet" href="css/styles.css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|DM+Serif+Text|EB+Garamond|Lexend+Tera|Nothing+You+Could+Do|Playfair+Display+SC|Prata|Rokkitt|Work+Sans&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  <title>Chuon Chuon Twitter</title>
+</head>
+
+<div class="container col-6">
+  <h1 class="display-4" id="chuon">Chuon Chuon's Twitter</h1>
+  <div class="media">
+    <img class="mr-3"
+      src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" toggleText()"
+      width="64" height="64">
+    <div class="container">
+      <div class="media-body">
+        <textarea placeholder="What's happening?" autofocus class="form-control form-control-lg mb-3" width="200"
+          id="text"></textarea>
+        <button class="btn btn-danger" id="tweet" onclick="onTweet()">Tweet</button>
+        <span id="remain-letter" class="float-right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TWEETS LIST -->
+<div class="container col-6">
+  <div class="col-12" id="tweets-list">
+    <div class="media">
+      <img class="mr-3" src="..." alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0">Media heading</h5>
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+        odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+        fringilla. Donec lacinia congue felis in faucibus.
+
+        <div class="media mt-3">
+          <a class="pr-3" href="#">
+            <img src="..." alt="Generic placeholder image">
+          </a>
+          <div class="media-body">
+            <h5 class="mt-0">Media heading</h5>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="col-3"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+<script src="js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</html>

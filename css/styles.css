@@ -1,0 +1,48 @@
+
+textarea {
+    resize: none;
+    width: 30rem !important;
+  }
+
+#chuon {
+  font-family: 'DM Serif Text', serif !important;
+}
+
+.tweet-content {
+  font-size: 1rem;
+  font-weight: 150;
+  /* font-family:  */
+}
+
+#tweets-list{
+    margin-top: 10vh !important;
+    padding-left: 30px !important;
+}
+
+small {
+  font-size: 10px;
+  color: grey;
+}
+
+#text {
+  border: 0.3px solid #C82333;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, .1)
+}
+
+textarea:focus {
+  outline: none !important;
+  border: 1px solid #C82333 !important;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, .1) !important;  
+}
+
+
+.remaining {
+  font-size: 11px;
+  font-weight: 150;
+}
+
+#tweets-list{
+  border: 0.5px solid #C82333;
+  border-radius: 3px;
+  padding: 1rem;
+}
