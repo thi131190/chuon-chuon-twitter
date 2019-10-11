@@ -77,9 +77,9 @@ function renderTweets(tweetsArray) {
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
                 <p class="tweet-content">${insertLink(tweet.body)}</p>
-                <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${
+                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
-				})><i class="far fa-heart"></i></button>
+				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
 		        <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
             </div>
         </div><hr>`;
@@ -104,6 +104,7 @@ function like(id) {
 			console.log(tweet.isLiked);
 		}
 	});
+	renderTweets(tweetAppState.tweets);
 }
 
 function onTweet() {
