@@ -79,8 +79,12 @@ function renderTweets(tweetsArray) {
             <img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
-                <p class="media-content">${insertLink(tweet.body)}</p>
-                <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${tweet.id})><i class="far fa-heart"></i></button>
+
+                <p class="tweet-content">${insertLink(tweet.body)}</p>
+                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
+					tweet.id
+				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
+
 		        <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
             </div>
 		</div><hr>`;
@@ -129,6 +133,7 @@ function like(id) {
 			console.log(tweet.isLiked);
 		}
 	});
+	renderTweets(tweetAppState.tweets);
 }
 
 function onTweet() {
