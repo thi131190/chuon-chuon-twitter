@@ -114,16 +114,16 @@ function renderTweets(tweetsArray) {
 				<div class="media">
 				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 				<div class="media-body">
-				  <h5 class="mt-0">${tweet.username} retweeted <small>${moment(tweet.tweetAt).fromNow()}</h5>
+				  <h5 class="mt-0">${tweet.username} retweeted <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
 				  <p class="media-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
 				  <div class="media mt-3">
 					<a class="pr-3" href="#">
 					  <img class="rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 					</a>
-					<div class="media-body">
-					  <h5 class="mt-0">${tweetAppState.tweets[index].username} <small>${moment(
+					<div class="media-body tweet-content">
+					  <h5 class="mt-0">${tweetAppState.tweets[index].username} </h5><small>${moment(
 					tweetAppState.tweets[index].tweetAt
-				).fromNow()}</h5>
+				).fromNow()}</small>
 					  <p>${insertImage(insertMention(insertLink(tweetAppState.tweets[index].body)))}</p>
 					</div>
 				  </div>

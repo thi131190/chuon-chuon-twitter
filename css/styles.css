@@ -33,8 +33,7 @@ color: #0080ff;
 .tweet-content {
   font-size: 1rem;
   font-weight: 150;
-  word-break: break-all;
-  /* font-family:  */
+  word-break: break-word;
 }
 
 #tweets-list{
