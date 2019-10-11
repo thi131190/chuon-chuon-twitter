@@ -47,7 +47,7 @@ function insertImage(string) {
 	const splitString = string.split(' ');
 	return splitString
 		.map(word => {
-			const isHashtag = word.includes(".png") || word.includes(".jpg");
+			const isHashtag = word.includes(".png") || word.includes(".jpg") || word.includes(".gif");
 			return isHashtag ? `<img href="#" src="${word}" width="400">` : word;
 		})
 		.join(' ');
@@ -108,7 +108,7 @@ function renderTweets(tweetsArray) {
 				<img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 				<div class="media-body">
 				  <h5 class="mt-0">${tweet.username} just retweeted <small>${moment(tweet.tweetAt).fromNow()}</h5>
-				  <p class="media-content">${insertLink(tweet.body)}</p>
+				  <p class="media-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
 				  <div class="media mt-3">
 					<a class="pr-3" href="#">
 					  <img src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
@@ -117,7 +117,7 @@ function renderTweets(tweetsArray) {
 					  <h5 class="mt-0">${tweetAppState.tweets[index].username} <small>${moment(
 					tweetAppState.tweets[index].tweetAt
 				).fromNow()}</h5>
-					  <p>${insertLink(tweetAppState.tweets[index].body)}</p>
+					  <p>${insertImage(insertMention(insertLink(tweetAppState.tweets[index].body)))}</p>
 					</div>
 				  </div>
 				  <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${
