@@ -9,11 +9,9 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js">
   <link rel="stylesheet" href="css/styles.css">
-  <link
-    href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|DM+Serif+Text|EB+Garamond|Lexend+Tera|Nothing+You+Could+Do|Playfair+Display+SC|Prata|Rokkitt|Work+Sans&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-  <title>Chuon Chuon Twitter</title>
+  <title>Chuon Chuon's Twitter</title>
 </head>
 
 <div class="container-fluid">
@@ -25,20 +23,25 @@
     <!-------- CENTER COLUMN -------->
     <div class="col-md-6">
       <!-- TWEETS BOX -->
-      <div class="row tweet-box">
-        <h1 class="display-4" id="chuon">Chuon Chuon's Twitter</h1>
+      <div class="container">
+        <h1 id="chuon">Chuon Chuon's Twitter</h1>
+        <p class="twitter-header-name lead mb-0">@chuonchuonlee <i class="fas fa-check-circle"></i></p>
+        <p class="lead">Head of Security at CoderSchool, I take my job seriously.</p>
+
+        <div class="row tweet-box">
         <div class="media">
-          <img class="mr-3"
+          <img class="mr-3 rounded-circle"
             src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg"
             toggleText()" width="64" height="64">
           <div class="media-body">
-            <textarea placeholder="What's happening?" autofocus class="form-control form-control-lg mb-3" width="200"
+            <textarea placeholder="What's up, dawg?" autofocus autocomplete="off" class="form-control form-control-lg mb-3"
               id="text"></textarea>
             <button class="btn btn-danger" id="tweet" onclick="onTweet()" disabled>Tweet</button>
             <span id="remain-letter" class="float-right"></span>
           </div>
         </div>
       </div>
+  </div>
       <!-- TWEETS RENDER AREA -->
       <div class="row" id="tweets-list">
         <div class="media">

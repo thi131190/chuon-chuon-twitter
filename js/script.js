@@ -75,30 +75,37 @@ function renderTweets(tweetsArray) {
 			if(tweet.type==="original-tweet"){
 			html += `
         <div class="media">
-            <img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
+            <img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
                 <p class="tweet-content">${insertLink(tweet.body)}</p>
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
 				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
-
-				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
-				<button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>
-            </div>
+				<button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>
+				<button class="btn btn-danger btn-sm float-right" mx-2 id="comment" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="far fa-comment"></i></button>
+				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=reTweet(${tweet.id})><i class="fas fa-retweet"></i></button>
+				
+				<div class="collapse" id="collapseExample">
+  					<div class="card-text mt-3 mb-2">
+					<input class="form-control" type="text"></input>
+					  </div>
+					<button class="btn btn-danger btn=sm float-right" id= "send"> send <i class="fas fa-paper-plane"></i></button>
+				</div>	
+			</div>
 		</div><hr>`;
 			}else if(tweet.type==="retweet"){
 				let index = tweetAppState.tweets.findIndex(master => master.id === tweet.tweetID);
 				console.log(index)
 				html+=`
 				<div class="media">
-				<img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
+				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 				<div class="media-body">
-				  <h5 class="mt-0">${tweet.username} just retweeted <small>${moment(tweet.tweetAt).fromNow()}</h5>
+				  <h5 class="mt-0">${tweet.username} retweeted <small>${moment(tweet.tweetAt).fromNow()}</h5>
 				  <p class="media-content">${insertLink(tweet.body)}</p>
 				  <div class="media mt-3">
 					<a class="pr-3" href="#">
-					  <img src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
+					  <img class="rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 					</a>
 					<div class="media-body">
 					  <h5 class="mt-0">${tweetAppState.tweets[index].username} <small>${moment(tweetAppState.tweets[index].tweetAt).fromNow()}</h5>
@@ -106,8 +113,17 @@ function renderTweets(tweetsArray) {
 					</div>
 				  </div>
 				  <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${tweet.id})><i class="far fa-heart"></i></button>
-				  <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
-				  <button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>    
+				  <button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>   
+				  <button class="btn btn-danger btn-sm float-right" id="comment2" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2"><i class="far fa-comment"></i></button>  
+				  <button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=reTweet(${tweet.id})><i class="fas fa-retweet"></i></button>
+				  
+				  <div class="collapse" id="collapseExample2">
+					 <div class="card-text mt-3">
+						<input class="form-control" type="text"></input>
+						<button class="btn btn-danger btn=sm float-right mt-2" id= "send" m> send <i class="fas fa-paper-plane"></i></button>					
+					 </div>
+				  </div>
+				
 				</div>
 			  </div><hr>`
 
