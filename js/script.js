@@ -83,7 +83,7 @@ function renderTweets(tweetsArray) {
 					tweet.id
 				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
 
-				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
+				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
 				<button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>
             </div>
 		</div><hr>`;
