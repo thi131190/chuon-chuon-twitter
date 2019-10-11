@@ -36,8 +36,7 @@ function insertLink(string) {
 // Example Twitter Appstate
 let tweetAppState = {
 	currentUsername: 'Chuon Chuon',
-	totalTweets: 1,
-	totalRetweets: 1,
+	totalTweets: 2,
 	tweets: [
 		{
 			id: 1,
@@ -55,7 +54,7 @@ let tweetAppState = {
 			username: 'Chuon Chuon',
 			type: 'retweet',
 			tweetID: 1,
-			commentAt: 1570695718369,
+			tweetAt: 1570195518369,
 			isLiked: false,
 			body:
 				"#Chloe, if you leave the room i’m in. i will always follow you to the next one. whatever this adventure is, you don't have to do this alone.",
@@ -79,13 +78,13 @@ function renderTweets(tweetsArray) {
             <img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
-
                 <p class="tweet-content">${insertLink(tweet.body)}</p>
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
 				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
 
-		        <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
+				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
+				<button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>
             </div>
 		</div><hr>`;
 			}else if(tweet.type==="retweet"){
@@ -106,6 +105,9 @@ function renderTweets(tweetsArray) {
 					  <p>${insertLink(tweetAppState.tweets[index].body)}</p>
 					</div>
 				  </div>
+				  <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${tweet.id})><i class="far fa-heart"></i></button>
+				  <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
+				  <button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>    
 				</div>
 			  </div><hr>`
 
@@ -118,15 +120,21 @@ function renderTweets(tweetsArray) {
 
 
 // remove tweets
-function remove(id) {
-	let index = tweetAppState.tweets.find(tweet => tweet.id === id); //Find current index of the given id
-	tweetAppState.tweets.splice(index, 1); //Remove the tweet in that index
+function remove(id, type) {
+	if(type==='original-tweet'){ //if type is original tweet, delete all the retweets if have
+		let index = tweetAppState.tweets.findIndex(tweet => tweet.id === id); //Find current index of the given id
+		tweetAppState.tweets.splice(index, 1); //Remove the tweet in that index
+		tweetAppState.reTweets = tweetAppState.reTweets.filter(retweet => retweet.tweetID !== id)
+	}else if(type==="retweet"){ //just delete it self
+		let index = tweetAppState.reTweets.findIndex(retweet => retweet.id === id); //Find current index of the given id
+		tweetAppState.reTweets.splice(index, 1); //Remove the tweet in that index
+	}
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the tweet array
 }
 
 // like tweets
 function like(id) {
-	tweetAppState.tweets.map(tweet => {
+	tweetAppState.tweets.concat(tweetAppState.reTweets).map(tweet => {
 		if (tweet.id === id) {
 			//Loop thouch tweets arrays and change the isLiked variable to true of false
 			tweet.isLiked = !tweet.isLiked;
@@ -150,5 +158,22 @@ function onTweet() {
 	tweet.disabled = true; //Disable post button
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the modified tweet list
 }
+
+function reTweet(id) {
+	let newTweet = {
+		id: tweetAppState.totalTweets = tweetAppState.totalTweets+1, // Plus 1 to current tweets object
+		type: 'retweet',
+		username: tweetAppState.currentUsername, //Get current username
+		tweetID: id,
+		tweetAt: Date.now(), //Get current time
+		body: text.value, //Get the value of the text input form
+	};
+	tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
+	text.value = ''; //Clean the textbox
+	remain.innerHTML = ``; //Clean the tweet remain
+	tweet.disabled = true; //Disable post button
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the modified tweet list
+}
+
 
 renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Call the function to render currently get from tweetAppState object
