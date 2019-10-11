@@ -1,3 +1,9 @@
+# CoderSchool FTW - *Group 5's Twitter*
+
+Created by: Chloe, Thi, Thuong, Tuan.
+  
+Cloning Twitter with HTML, CSS and vanilla JavaScript ES6. View online [here](https://chuon-chuon-twitter.netlify.com//).
+
 
 *** Required User Stories ***
 
