@@ -16,50 +16,61 @@
   <title>Chuon Chuon Twitter</title>
 </head>
 
-<div class="container col-6">
-  <h1 class="display-4" id="chuon">Chuon Chuon's Twitter</h1>
-  <div class="media">
-    <img class="mr-3"
-      src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" toggleText()"
-      width="64" height="64">
-    <div class="container">
-      <div class="media-body">
-        <textarea placeholder="What's happening?" autofocus class="form-control form-control-lg mb-3" width="200"
-          id="text"></textarea>
-        <button class="btn btn-danger" id="tweet" onclick="onTweet()">Tweet</button>
-        <span id="remain-letter" class="float-right"></span>
-      </div>
+<div class="container-fluid">
+  <div class="row">
+     <!-------- LEFT COLUMN -------->
+    <div class="col-md-3">
+      <p>This is left column</p>
     </div>
-  </div>
-</div>
-
-<!-- TWEETS LIST -->
-<div class="container col-6">
-  <div class="col-12" id="tweets-list">
-    <div class="media">
-      <img class="mr-3" src="..." alt="Generic placeholder image">
-      <div class="media-body">
-        <h5 class="mt-0">Media heading</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-        odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-        fringilla. Donec lacinia congue felis in faucibus.
-
-        <div class="media mt-3">
-          <a class="pr-3" href="#">
-            <img src="..." alt="Generic placeholder image">
-          </a>
+    <!-------- CENTER COLUMN -------->
+    <div class="col-md-6">
+      <!-- TWEETS BOX -->
+      <div class="row tweet-box">
+        <h1 class="display-4" id="chuon">Chuon Chuon's Twitter</h1>
+        <div class="media">
+          <img class="mr-3"
+            src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg"
+            toggleText()" width="64" height="64">
+          <div class="media-body">
+            <textarea placeholder="What's happening?" autofocus class="form-control form-control-lg mb-3" width="200"
+              id="text"></textarea>
+            <button class="btn btn-danger" id="tweet" onclick="onTweet()">Tweet</button>
+            <span id="remain-letter" class="float-right"></span>
+          </div>
+        </div>
+      </div>
+      <!-- TWEETS RENDER AREA -->
+      <div class="row" id="tweets-list">
+        <div class="media">
+          <img class="mr-3" src="..." alt="Generic placeholder image">
           <div class="media-body">
             <h5 class="mt-0">Media heading</h5>
-            <p></p>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+            odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+            fringilla. Donec lacinia congue felis in faucibus.
+
+            <div class="media mt-3">
+              <a class="pr-3" href="#">
+                <img src="..." alt="Generic placeholder image">
+              </a>
+              <div class="media-body">
+                <h5 class="mt-0">Media heading</h5>
+                <p></p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-------- RIGHT COLUMN -------->
+    <div class="col-md-3">
+      <p>This is right column</p>
+    </div>
   </div>
 </div>
-<div>
-  <div class="col-3"></div>
-</div>
+
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 <script src="js/script.js"></script>
