@@ -80,13 +80,15 @@ function renderTweets(tweetsArray) {
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
 
-                <p class="tweet-content">${insertLink(tweet.body)}</p>
+				<p class="tweet-content">${insertLink(tweet.body)}</p>
+				
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
 				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
 
 		        <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
-            </div>
+				
+				</div>
 		</div><hr>`;
 			}else if(tweet.type==="retweet"){
 				let index = tweetAppState.tweets.findIndex(master => master.id === tweet.tweetID);
