@@ -47,7 +47,7 @@ function insertImage(string) {
 	const splitString = string.split(' ');
 	return splitString
 		.map(word => {
-			const isHashtag = word.includes(".png") || word.includes(".jpg");
+			const isHashtag = word.includes(".png") || word.includes(".jpg") || word.includes(".gif");
 			return isHashtag ? `<img href="#" src="${word}" width="400">` : word;
 		})
 		.join(' ');
