@@ -92,7 +92,7 @@ function renderTweets(tweetsArray) {
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
 
-				<p class="tweet-content">${insertLink(tweet.body)}</p>
+				<p class="tweet-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
 				
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
