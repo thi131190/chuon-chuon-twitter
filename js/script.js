@@ -54,7 +54,7 @@ let tweetAppState = {
 			username: 'Chuon Chuon',
 			type: 'retweet',
 			tweetID: 1,
-			commentAt: 1570695718369,
+			tweetAt: 1570195518369,
 			isLiked: false,
 			body:
 				"#Chloe, if you leave the room i’m in. i will always follow you to the next one. whatever this adventure is, you don't have to do this alone.",
