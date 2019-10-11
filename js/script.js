@@ -6,6 +6,7 @@ const MAX_NUM = 140;
 text.addEventListener('input', countRemain);
 
 // count characters
+
 function countRemain() {
 	let remainLetter = MAX_NUM - text.value.length;
 	if (remainLetter < 0) {
@@ -27,7 +28,27 @@ function insertLink(string) {
 	return splitString
 		.map(word => {
 			const isHashtag = word[0] === '#';
-			return isHashtag ? `<a href="#" onclick="magic()">${word}</a>` : word;
+			return isHashtag ? `<a href="#" onclick="magic('${word}')">${word}</a>` : word;
+		})
+		.join(' ');
+}
+
+function insertMention(string) {
+	const splitString = string.split(' ');
+	return splitString
+		.map(word => {
+			const isHashtag = word[0] === '@';
+			return isHashtag ? `<a href="#" onclick="magic2('${word}')">${word}</a>` : word;
+		})
+		.join(' ');
+}
+
+function insertImage(string) {
+	const splitString = string.split(' ');
+	return splitString
+		.map(word => {
+			const isHashtag = word.includes(".png") || word.includes(".jpg");
+			return isHashtag ? `<img href="#" src="${word}" width="400">` : word;
 		})
 		.join(' ');
 }
@@ -70,7 +91,7 @@ function renderTweets(tweetsArray) {
             <img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
-                <p class="tweet-content">${insertLink(tweet.body)}</p>
+                <p class="tweet-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${
 					!tweet.isLiked ? 'far' : 'fas'
 				} fa-heart"></i></button>
@@ -110,7 +131,7 @@ function renderTweets(tweetsArray) {
 		})
 		.join(''); //Remove ',' from the list
 	document.getElementById('tweets-list').innerHTML = html; //Get Element "tweets-list" and put the html code to that element"
-	saveAppState(tweetAppState);
+	saveAppState(tweetAppState); // Save current AppState after every render
 }
 
 // remove tweets
@@ -157,7 +178,7 @@ function onTweet() {
 }
 
 function reTweet(id) {
-	let isRetweeted = tweetAppState.reTweets.findIndex(retweet => retweet.id === id) != -1;
+	let isRetweeted = tweetAppState.reTweets.findIndex(retweet => retweet.id === id) != -1; //Check if object is a retweet of a original tweet
 	if (!isRetweeted) {
 		let newTweet = {
 			id: (tweetAppState.totalTweets = tweetAppState.totalTweets + 1), // Plus 1 to current tweets object
@@ -190,5 +211,9 @@ function reTweet(id) {
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Re-render the modified tweet list
 }
 
-getAppState();
+function magic(hashtags){ //filter the list with hashtag
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id).filter(tweet => tweet.body.includes(hashtags)))
+}
+
+getAppState(); //Get previous appstate in localstorage, if there none, create a new one.
 renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object
