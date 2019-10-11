@@ -94,11 +94,11 @@ function renderTweets(tweetsArray) {
                 <p class="tweet-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
                 <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
 					tweet.id
-				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
+					})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
 				<button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>
 				<button class="btn btn-danger btn-sm float-right" mx-2 id="comment" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="far fa-comment"></i></button>
 				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=reTweet(${tweet.id})><i class="fas fa-retweet"></i></button>
-				
+
 				<div class="collapse" id="collapseExample">
   					<div class="card-text mt-3 mb-2">
 					<input class="form-control" type="text"></input>
@@ -106,7 +106,7 @@ function renderTweets(tweetsArray) {
 					<button class="btn btn-danger btn=sm float-right" id= "send"> send <i class="fas fa-paper-plane"></i></button>
 				</div>	
 			</div>
-		</div><hr>`;
+		</div>`;
 			} else if (tweet.type === 'retweet') {
 				let index = tweetAppState.tweets.findIndex(master => master.id === tweet.tweetID);
 				// console.log(index)
@@ -139,7 +139,7 @@ function renderTweets(tweetsArray) {
 					 </div>
 				  </div>
 				</div>
-			  </div><hr>`;
+			  </div>`;
 			}
 		})
 		.join(''); //Remove ',' from the list
@@ -224,7 +224,7 @@ function reTweet(id) {
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Re-render the modified tweet list
 }
 
-function magic(hashtags){ //filter the list with hashtag
+function magic(hashtags) { //filter the list with hashtag
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id).filter(tweet => tweet.body.includes(hashtags)))
 }
 
