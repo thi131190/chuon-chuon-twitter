@@ -58,6 +58,8 @@ small {
   border: 0.5px solid #C82333;
   border-radius: 3px;
   padding: 1rem;
+  margin: 1px;
+
 }
 
 .highlight {
@@ -67,3 +69,26 @@ small {
  .comment {
    border-style : none;
  }
+
+ .left-column{
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: center;
+   align-items: flex-start;
+   border-right: 1px solid #C82333;
+ }
+
+ .right-column{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: center;
+  align-items: flex-start;
+  border-left: 1px solid #C82333;
+}
+
+
+ .fa-paw{
+   font-size: 3vmax;
+   margin: 20px;
+ }
+

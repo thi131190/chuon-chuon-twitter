@@ -16,12 +16,23 @@
 
 <div class="container-fluid">
   <div class="row">
-     <!-------- LEFT COLUMN -------->
-    <div class="col-md-3">
-      <p>This is left column</p>
-    </div>
+    <!-------- LEFT COLUMN -------->
+    <div class="col-md-2 left-column">
+      <!-- Image and text -->
+  <nav class="navbar bg-transparent">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-paw" class="d-inline-block align-top"></i>
+        <span>Twitter</span>
+    </a>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="#">Active</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </nav>
+      </div>
     <!-------- CENTER COLUMN -------->
-    <div class="col-md-6">
+    <div class="col-md-8">
       <!-- TWEETS BOX -->
       <div class="container">
         <h1 id="chuon">Chuon Chuon's Twitter</h1>
@@ -29,25 +40,26 @@
         <p class="lead">Head of Security at CoderSchool, I take my job seriously.</p>
 
         <div class="row tweet-box">
-        <div class="media">
+          <div class="media">
 
-          <img class="mr-3 rounded-circle"
-            src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64">
-          <div class="media-body">
-            <textarea placeholder="What's up, dawg?" autofocus autocomplete="off" class="form-control form-control-lg mb-3"
-              id="text"></textarea>
-            <button class="btn btn-danger" id="tweet" onclick="onTweet()" disabled>Tweet</button>
-            <span id="remain-letter" class="float-right"></span>
+            <img class="mr-3 rounded-circle"
+              src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg"
+              width="64" height="64">
+            <div class="media-body">
+              <textarea placeholder="What's up, dawg?" autofocus autocomplete="off"
+                class="form-control form-control-lg mb-3" id="text"></textarea>
+              <button class="btn btn-danger" id="tweet" onclick="onTweet()" disabled>Tweet</button>
+              <span id="remain-letter" class="float-right"></span>
+            </div>
           </div>
         </div>
       </div>
-  </div>
       <!-- TWEETS RENDER AREA -->
       <div class="row" id="tweets-list">
       </div>
     </div>
     <!-------- RIGHT COLUMN -------->
-    <div class="col-md-3">
+    <div class="col-md-2 right-column">
       <p>This is right column</p>
     </div>
   </div>
@@ -64,4 +76,5 @@
   integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
   integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </html>
