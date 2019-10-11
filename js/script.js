@@ -34,35 +34,34 @@ function insertLink(string) {
 
 /* DEFAULT VARIABLES */
 // Example Twitter Appstate
-let tweetAppState = {
-	currentUsername: 'Chuon Chuon',
-	totalTweets: 2,
-	tweets: [
-		{
-			id: 1,
-			username: 'Chuon Chuon',
-			type: 'original-tweet',
-			tweetAt: 1570695718369,
-			isLiked: false,
-			body:
-				'i’m a simple pup. i don’t need much. just your attention at all times. and for everyone i ever meet to love me a whole bunch.',
-		},
-	],
-	reTweets: [
-		{
-			id: 1,
-			username: 'Chuon Chuon',
-			type: 'retweet',
-			tweetID: 1,
-			tweetAt: 1570195518369,
-			isLiked: false,
-			body:
-				"#Chloe, if you leave the room i’m in. i will always follow you to the next one. whatever this adventure is, you don't have to do this alone.",
-		},
-	],
-};
+
 
 /* FUNCTION */
+
+//Local-storage Functions
+
+let tweetAppState = {}
+
+function getAppState(){
+
+	let newTweetsList = {
+		currentUsername: 'Chuon Chuon',
+		totalTweets: 2,
+		tweets: [
+	
+		],
+		reTweets: [
+	
+		],
+	};
+
+	tweetAppState = JSON.parse(localStorage.getItem("tweetsList")) || newTweetsList
+	
+}
+
+function saveAppState(appState){
+	localStorage.setItem("tweetsList", JSON.stringify(appState))
+}
 
 ///Render functions
 
@@ -79,17 +78,14 @@ function renderTweets(tweetsArray) {
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
                 <p class="tweet-content">${insertLink(tweet.body)}</p>
-                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
-					tweet.id
-				})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
-
-				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id})>Delete</button>
+                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
+				<button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
 				<button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>
             </div>
 		</div><hr>`;
 			}else if(tweet.type==="retweet"){
 				let index = tweetAppState.tweets.findIndex(master => master.id === tweet.tweetID);
-				console.log(index)
+				// console.log(index)
 				html+=`
 				<div class="media">
 				<img class="mr-3" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
@@ -105,7 +101,7 @@ function renderTweets(tweetsArray) {
 					  <p>${insertLink(tweetAppState.tweets[index].body)}</p>
 					</div>
 				  </div>
-				  <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${tweet.id})><i class="far fa-heart"></i></button>
+				  <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked? "far": "fas"} fa-heart"></i></button>
 				  <button class="btn btn-danger btn-sm" id="delete" onclick=remove(${tweet.id},'${tweet.type}')>Delete</button>
 				  <button class="btn btn-danger btn-sm" id="delete" onclick=reTweet(${tweet.id})>ReTweet</button>    
 				</div>
@@ -115,6 +111,7 @@ function renderTweets(tweetsArray) {
 		})
 		.join(''); //Remove ',' from the list
 	document.getElementById('tweets-list').innerHTML = html; //Get Element "tweets-list" and put the html code to that element"
+	saveAppState(tweetAppState)
 }
 
 
@@ -129,7 +126,7 @@ function remove(id, type) {
 		let index = tweetAppState.reTweets.findIndex(retweet => retweet.id === id); //Find current index of the given id
 		tweetAppState.reTweets.splice(index, 1); //Remove the tweet in that index
 	}
-	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the tweet array
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a,b) => b.id - a.id )); //Re-render the tweet array
 }
 
 // like tweets
@@ -138,10 +135,10 @@ function like(id) {
 		if (tweet.id === id) {
 			//Loop thouch tweets arrays and change the isLiked variable to true of false
 			tweet.isLiked = !tweet.isLiked;
-			console.log(tweet.isLiked);
+			// console.log(tweet.isLiked);
 		}
 	});
-	renderTweets(tweetAppState.tweets);
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a,b) => b.id - a.id ));
 }
 
 function onTweet() {
@@ -151,29 +148,49 @@ function onTweet() {
 		username: tweetAppState.currentUsername, //Get current username
 		tweetAt: Date.now(), //Get current time
 		body: text.value, //Get the value of the text input form
+		isLiked: false
 	};
 	tweetAppState.tweets.unshift(newTweet); //Push new message to the top of array
 	text.value = ''; //Clean the textbox
 	remain.innerHTML = ``; //Clean the tweet remain
 	tweet.disabled = true; //Disable post button
-	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the modified tweet list
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a,b) => b.id - a.id )); //Re-render the modified tweet list
 }
 
 function reTweet(id) {
-	let newTweet = {
-		id: tweetAppState.totalTweets = tweetAppState.totalTweets+1, // Plus 1 to current tweets object
-		type: 'retweet',
-		username: tweetAppState.currentUsername, //Get current username
-		tweetID: id,
-		tweetAt: Date.now(), //Get current time
-		body: text.value, //Get the value of the text input form
-	};
-	tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
-	text.value = ''; //Clean the textbox
-	remain.innerHTML = ``; //Clean the tweet remain
-	tweet.disabled = true; //Disable post button
-	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Re-render the modified tweet list
+	let isRetweeted = tweetAppState.reTweets.findIndex(retweet => retweet.id === id) != -1
+	if(!isRetweeted){
+		let newTweet = {
+			id: tweetAppState.totalTweets = tweetAppState.totalTweets+1, // Plus 1 to current tweets object
+			type: 'retweet',
+			username: tweetAppState.currentUsername, //Get current username
+			tweetID: id,
+			tweetAt: Date.now(), //Get current time
+			body: text.value, //Get the value of the text input form
+			isLiked: false
+		};
+		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
+		text.value = ''; //Clean the textbox
+		remain.innerHTML = ``; //Clean the tweet remain
+		tweet.disabled = true; //Disable post button
+	}else{
+		let fatherId = tweetAppState.reTweets.find(retweet => retweet.id === id).tweetID
+		let newTweet = {
+			id: tweetAppState.totalTweets = tweetAppState.totalTweets+1, // Plus 1 to current tweets object
+			type: 'retweet',
+			username: tweetAppState.currentUsername, //Get current username
+			tweetID: fatherId,
+			tweetAt: Date.now(), //Get current time
+			body: text.value, //Get the value of the text input form
+		};
+		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
+		text.value = ''; //Clean the textbox
+		remain.innerHTML = ``; //Clean the tweet remain
+		tweet.disabled = true; //Disable post button
+
+	}
+	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a,b) => b.id - a.id )); //Re-render the modified tweet list
 }
 
-
-renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets)); //Call the function to render currently get from tweetAppState object
+getAppState()
+renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a,b) => b.id - a.id )); //Call the function to render currently get from tweetAppState object
