@@ -307,5 +307,18 @@ function magic(hashtags) { //filter the list with hashtag
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id).filter(tweet => tweet.body.includes(hashtags)))
 }
 
+//async forever rendering function
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function renderPerMin(){
+	while(true){
+		renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object		
+		await sleep(60000);
+	}
+}
+
 getAppState(); //Get previous appstate in localstorage, if there none, create a new one.
-renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object
+renderPerMin()
