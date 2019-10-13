@@ -1,24 +1,103 @@
 let text = document.getElementById('text');
 let remain = document.getElementById('remain-letter');
 let tweet = document.getElementById('tweet');
+let reTweetModal = document.getElementById('myModal');
+
 const MAX_NUM = 140;
 
-text.addEventListener('input', countRemain);
+text.addEventListener('keyup', countRemain);
+
+///Modal show
+function showReTweetModal(id){
+	let isRetweeted = tweetAppState.reTweets.findIndex(retweet => retweet.id === id) != -1;
+	if(!isRetweeted){
+		let tweetcontent = tweetAppState.tweets.find(tweet => tweet.id === id)
+		reTweetModal.innerHTML=`
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title">Chuon Chuon retweet</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+		  </div>
+		  <div class="modal-body">
+			<p>What do you want to say about?</p>
+			<textarea placeholder="Chuon Chuon number 1?" autofocus autocomplete="off"
+			class="form-control form-control-lg mb-3" id="retweet-Text"></textarea>
+				<div class="media tweet">
+				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
+				<div class="media-body">
+					<h5 class="mt-0">${tweetcontent.username} <small>${moment(tweetcontent.tweetAt).fromNow()}</small></h5>
+
+					<p class="tweet-content">${insertImage(insertMention(insertLink(tweetcontent.body)))}</p>					
+				</div>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-primary" onclick=reTweet(${tweetcontent.id})>ReTweet</button>
+		  </div>
+		</div>
+	  </div>`
+	}if(isRetweeted){
+		let fatherIndex = tweetAppState.reTweets.find(retweet => retweet.id === id).tweetID;
+		let fatherContent = tweetAppState.tweets.find(tweet => tweet.id === fatherIndex);
+		reTweetModal.innerHTML=`
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title">Chuon Chuon retweet</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+		  </div>
+		  <div class="modal-body">
+			<p>What do you want to say about?</p>
+			<textarea placeholder="Chuon Chuon number 1?" autofocus autocomplete="off"
+			class="form-control form-control-lg mb-3" id="retweet-Text"></textarea>
+				<div class="media tweet">
+				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
+				<div class="media-body">
+					<h5 class="mt-0">${fatherContent.username} <small>${moment(fatherContent.tweetAt).fromNow()}</small></h5>
+
+					<p class="tweet-content">${insertImage(insertMention(insertLink(fatherContent.body)))}</p>					
+				</div>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-primary" onclick=reTweet(${fatherContent.id})>ReTweet</button>
+		  </div>
+		</div>
+	  </div>`
+	}
+	$('#myModal').modal('show');	
+}
 
 // count characters
+
 
 function countRemain() {
 	let remainLetter = MAX_NUM - text.value.length;
 	if (remainLetter < 0) {
-		remain.innerHTML = `<span class="remaining">Remaining letter is ${remainLetter}</span>`;
+		remain.innerHTML = `<span class="remaining">Remaining letter is <span class="remain-num">${remainLetter}</span></span>`;
 		remain.style.color = 'red';
 		tweet.disabled = true;
+		anime({
+			targets: '.main-tweet',
+			translateX: [+9, -9], // from 100 to 250
+			direction: 'alternate',
+		  });
 	} else if (text.value.length === 0) {
 		tweet.disabled = true;
 		remain.innerHTML = ``;
 	} else {
+		anime({
+			targets: '.main-tweet',
+			translateX: [+2, 0],
+			direction: 'alternate',
+		  });
 		remain.style.color = 'black';
-		remain.innerHTML = `<span class="remaining">Remaining letter is ${remainLetter}</span>`;
+		remain.innerHTML = `<span class="remaining">Remaining letter is <span class="remain-num">${remainLetter}</span></span>`;
 		tweet.disabled = false;
 	}
 }
@@ -87,19 +166,17 @@ function renderTweets(tweetsArray) {
 			//Loop thought tweetsArray items
 			if (tweet.type === 'original-tweet') {
 				html += `
-        <div class="media">
+        <div class="media tweet">
             <img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
             <div class="media-body">
                 <h5 class="mt-0">${tweet.username} <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
 
 				<p class="tweet-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
 				
-                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${
-					tweet.id
-					})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
+                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
 				<button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>
 				<button class="btn btn-danger btn-sm float-right" mx-2 id="comment" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="far fa-comment"></i></button>
-				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=reTweet(${tweet.id})><i class="fas fa-retweet"></i></button>
+				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${tweet.id})><i class="fas fa-retweet"></i></button>
 				<hr>
 				<div class="collapse" id="collapseExample">
   					<div class="card-text mt-3 mb-2">
@@ -113,12 +190,12 @@ function renderTweets(tweetsArray) {
 				let index = tweetAppState.tweets.findIndex(master => master.id === tweet.tweetID);
 				// console.log(index)
 				html += `
-				<div class="media">
+				<div class="media tweet">
 				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 				<div class="media-body">
 				  <h5 class="mt-0">${tweet.username} retweeted <small>${moment(tweet.tweetAt).fromNow()}</small></h5>
 				  <p class="media-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
-				  <div class="media mt-3">
+				  <div class="media tweet mt-3">
 					<a class="pr-3" href="#">
 					  <img class="rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
 					</a>
@@ -129,10 +206,10 @@ function renderTweets(tweetsArray) {
 					  <p>${insertImage(insertMention(insertLink(tweetAppState.tweets[index].body)))}</p>
 					</div>
 				  </div>
-				  <button class="btn btn-outline-danger btn-sm" id="delete" onclick=like(${tweet.id})><i class="far fa-heart"></i></button>
+				  <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
 				  <button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>   
 				  <button class="btn btn-danger btn-sm float-right" id="comment2" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2"><i class="far fa-comment"></i></button>  
-				  <button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=reTweet(${tweet.id})><i class="fas fa-retweet"></i></button>
+				  <button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${tweet.id})><i class="fas fa-retweet"></i></button>
 				  
 				  <div class="collapse" id="collapseExample2">
 					 <div class="card-text mt-3">
@@ -201,7 +278,7 @@ function reTweet(id) {
 			username: tweetAppState.currentUsername, //Get current username
 			tweetID: id,
 			tweetAt: Date.now(), //Get current time
-			body: text.value, //Get the value of the text input form
+			body: document.getElementById("retweet-Text").value, //Get the value of the text input form
 			isLiked: false,
 		};
 		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
@@ -216,13 +293,13 @@ function reTweet(id) {
 			username: tweetAppState.currentUsername, //Get current username
 			tweetID: fatherId,
 			tweetAt: Date.now(), //Get current time
-			body: text.value, //Get the value of the text input form
+			body: document.getElementById("retweet-Text").value, //Get the value of the text input form
 		};
 		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
-		text.value = ''; //Clean the textbox
 		remain.innerHTML = ``; //Clean the tweet remain
 		tweet.disabled = true; //Disable post button
 	}
+	$('#myModal').modal('hide');
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Re-render the modified tweet list
 }
 
@@ -230,5 +307,18 @@ function magic(hashtags) { //filter the list with hashtag
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id).filter(tweet => tweet.body.includes(hashtags)))
 }
 
+//async forever rendering function
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function renderPerMin(){
+	while(true){
+		renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object		
+		await sleep(60000);
+	}
+}
+
 getAppState(); //Get previous appstate in localstorage, if there none, create a new one.
-renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object
+renderPerMin()
