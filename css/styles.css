@@ -1,5 +1,6 @@
 
 #text {
+    resize: none;
     width: 30rem;
     border: 1px solid transparent;
     transition-duration: 0.5s;
@@ -103,6 +104,7 @@ small {
 
 .right-column{
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex-direction: center;
   align-items: flex-start;
@@ -110,6 +112,7 @@ small {
   border-bottom: 1px solid lightgrey;
   transition-duration: 1s;
 }
+
 
 .right-column:hover{
   display: flex;
@@ -318,4 +321,25 @@ font-size: 20px;
   border-radius: 30px;
   min-height: 5em;
   max-height: 50vh;
+}
+
+.hashtag-render-area{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:  wrap;
+  justify-content: flex-start;
+  flex-direction: center;
+}
+
+.hashtag-render-area > #hashtag {
+  display: flex;
+  color: #C82333;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: bold;
+  margin: 1px;
+}
+
+mark {
+  background-color: #C82333;
+  color: white;
 }
