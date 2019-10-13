@@ -19,63 +19,152 @@
     <!-------- LEFT COLUMN -------->
     <div class="col-md-2 left-column">
       <!-- Image and text -->
-  <nav class="navbar bg-transparent">
-    <a class="navbar-brand" href="#">
-        <i class="fas fa-paw" class="d-inline-block align-top"></i>
-    </a>
+      <nav class="navbar bg-transparent">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-paw red" class="d-inline-block align-top"></i>
+        </a>
         <div class="nav flex-column">
-            <a class="nav-item active" href="#"><i class="fas fa-dog"></i> Home</a>
-            <a class="nav-item" href="#"><i class="fas fa-bone"></i> Explore</a>
-            <a class="nav-item" href="#"><i class="fas fa-newspaper"></i> Message</a>
-            <a class="nav-item" href="#"><i class="fas fa-dot-circle"></i> Profile</a>
-            <button class="magical-button">Tweet</button>
+          <a class="nav-item active" href="#"><i class="fas fa-dog"></i> Home</a>
+          <a class="nav-item" href="#"><i class="fas fa-bone"></i> Explore</a>
+          <a class="nav-item" href="#"><i class="fas fa-newspaper"></i> Message</a>
+          <a class="nav-item" href="#"><i class="fas fa-dot-circle"></i> Profile</a>
+          <button class="magical-button">Tweet</button>
         </div>
-          </nav>
-      </div>
+      </nav>
+    </div>
     <!-------- CENTER COLUMN -------->
-    <div class="col-md-8">
+    <div class="col-md-6">
       <!-- TWEETS BOX -->
-      <div class="container">
+      <div class="container mt-5 mx-n5">
+
         <h1 id="chuon">Chuon Chuon's Twitter</h1>
         <p class="twitter-header-name lead mb-0">@chuonchuonlee <i class="fas fa-check-circle"></i></p>
         <p class="lead">Head of Security at CoderSchool, I take my job seriously.</p>
 
-        <div class="row tweet-box">
-          <div class="media">
-
-            <img class="mr-3 rounded-circle"
+        <div class="row tweet-box mr-1">
+          <div class="media" style="width: 100%;">
+            <img class="rounded-circle mx-3"
               src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg"
-              width="64" height="64">
+              width="50" height="50">
             <div class="media-body">
               <textarea placeholder="What's up, dawg?" autofocus autocomplete="off"
-                class="form-control form-control-lg mb-3" id="text"></textarea>
-              <button class="btn btn-danger" id="tweet" onclick="onTweet()" disabled>Tweet</button>
-              <span id="remain-letter" class="float-right"></span>
+                class="form-control mb-3 boxsizingBorder" id="text"></textarea>
+              <button class="btn btn-danger float-right py-1" id="tweet" onclick="onTweet()" disabled> Tweet <i
+                  class="fas fa-paw white"></i> </button>
+              <span id="remain-letter" class="float-right" style="padding-right:10px;"></span>
             </div>
           </div>
         </div>
+
       </div>
       <!-- TWEETS RENDER AREA -->
-      <div class="row" id="tweets-list">
+      <div class="row mx-3" id="tweets-list">
       </div>
     </div>
+
     <!-------- RIGHT COLUMN -------->
-    <div class="col-md-2 right-column">
-      <p>This is right column</p>
+    <div class="col-md-4 right-column">
+      <div class="container">
+        <input type="text" id="search" placeholder="  Search Twitter" />
+
+
+
+
+        <!-- imagebox -->
+
+        <div class="row imagebox">
+          <div class="column tweetimage">
+            <img
+              src="https://lh3.googleusercontent.com/_GzCNnOG3iu8Z0H6D4Kj88x_hEj-hgrS1tdCiZzMaWhmBICrygR1JQYi0d9zhQzSUiTKr3Y0ay-6fawkws2WJ3Blh_W3z2M7rkZmpKcabTU6cUYpfcYw8SuFyCorXvq8VvpFfSNqCgIZy51ev3B1_zuo2fNzGKp3etHhoXRvg5qufa00K_d8AvrXLHfUNnlZcWwpoua0fxT4cX1s-v6naUklbmRP7dnrq_gwaC1qmeDtZpODrj3uQdZg3Ee34SyEhC7jDAH7BPadNf6IQ8ekdo3iWYbbGa9_JmCT-9Ga9dU-1lmXSyWMy3LiezhGSoR6D_nwu_LnQKyxBB0eGz03fVB_-veKKAemiU1RNFezAhWebGYnp2cQAG5FWM-8ae7PYiAP8yqpqF7rSD1YFqlsshGIwlnJaqQVwC3rq985ieuKL1l1dK-9jPfjUvqm-1wv_8wavwUsMpuqUnO3HSyLOX-B3Jegsj7lSTEjLGlhU_00VIFdu-jd0IcPRC7ZNtMuYnvmOCg1Nj6ax_bAWR9xLVBxM5vGMSj4gR2AXGQBrB1GR1ZtHJlCdsZqIniI1ivAkMMRezWba3dB8UmZY4Nd-Xz3gQ8mNRyG-p89T5UE58uMR1WyDeNrNjs71WfwgsZZCraFo_bdFy2jymCYoI4rgLOsJD1y8QaGsFCQ3RE1WN1zy7TrZzZbNjo=w687-h915-no"
+              class="columnImg round-top-left">
+            <img
+              src="https://lh3.googleusercontent.com/oLXVV3_QfJomC0UYcxf7QVTgp0FM3kq9hwzW0nhTNzpWVoUKUtgHeMPZQ7KPLltYsVk23SrlfgAIhZOrIhc4tfwL1jYNQtYqq86XRy1ICYFX2iNVftA7x2rP_2vGvJd92se_NnUIU7E8h4CxP0iDrXKQi5x21QT_DdL8kuhMhtgxcHuvInZhvIOhQbk41yK7UjRtmZFdTSSqJazLuB6Sl5cqBERSlLC6VxW16mZ44-mVIdgW8E59lO13G3XC2hBCW7qf0pinPkkIg0B-IKYelfOBjx2tekg_zIPj5TRuELb4IteagciKW8naw0Jt0j9izi8s16C7o-UfZMBQ9mf-ZglWq_G2HdTaDW0GNsAG3EFZk03JjueI0VPrFcAe6HEPTTtDXf7yC8DRd6GA0mipkGAy55HyHdOJqT2pD3deszfm7-czmIwH5yI5tiTrYru_P9GjRjMry2_STu0BJd8Yz5GxladVMWKpAKnVqt_81UM6PXBc373Lr6KGQpzDpnijPkWHxDg5IdvdVHYN9YXmRzWUn6Gk_KqBzNsSDZuahr7qjyzRC6nzaywjTY9_h25iOIIpFmRilyrkzY6huuxxqUImNGD9QPu5b9SMrWmXCcIkq_zmZnuWf7XxJwZ0fbA7CUNK2R2koVSj66puFwzD1lpLW0FPK8TnWq0XchFt7a1rUgwyjAOztGU=w687-h915-no"
+              class="columnImg round-bottom-left">
+          </div>
+
+          <div class="column tweetimage">
+            <img
+              src="https://lh3.googleusercontent.com/GS7myF9LQDDh10moTYXKanWNYFJ8pPZve-kj6_EzMckvvPdzKqR4XZT2eu1ZRkROdqIzNDIRTS7Hy49MkmBkpLyML2FYJytVaj5S4o1jLxh91_wprldhnP8ogCb4F-p0I-rQL_skqhPFQ5Xj2gztC-V7QTycCBrmDdvM2AmSTfLdc-lrnb38COQzhb-wB5O2N4-a0_p8NFobuZpKcNZhMhgfRI_Sx_KNomigFwuKeAyErXMsSSJZr1JfEaLLoOx9k8wOZaMeHmu3bk1a36OFWM4jMV2Rlde1B5XuMgqWOv0HeLi-APD3HSKQ1nDMbF2lW8YONmIUXw2mDqCm7JWaHA6dq1N_bd94EXfs7g-DurxfvRVxpL7McFRO579W4Hii0wql7GERyhu_Pi1L_rINTaR85nlA9TSpM6AqaKf0ZH3Z5MI2hejN2iENWTI0PBAfQh6IP2OB7OTDRtR3mxUUGw0sf0ADE55gwPeXc6RQu20y1PmzdMOwcfQSurW67lbiK1UgksAhGOt5Jri8y6Td_bIKKe4NvnlPVI1ThH7WF7bLjL2YnlrVNkmPst_Yrtsa1XYgFv9sOcpcfXYYJltKSbLyPPPfE-vh1GZ3sYzoWiCy9VRo0ofsGM11gxvg48PIRDq6zMX1vah-60rgr0TcKnb90sB_YXu_iZx4zKqLHuaaT9lGvCIttsE=w687-h915-no"
+              class="columnImg">
+            <img
+              src="https://lh3.googleusercontent.com/hr3a9GKUOug0BLpm6Z5NFG0aaSSAQW0obLFBUffA86bo3Q0pdjB7wHsVkOkzoUKhR5IYbG-Jc3BM_OCZDmP-8eOnUVkQrOrVCG5Tx34IKQLJc3AQYia5uoztDQHNkgrtH7DoEoihsoXZSlAeldj0MXJYB0e9YsHo4jrnmM8XBsGc0F7CyY4wdb2vbzc9Mi-Oat-WKMjagWtG5oqaqleUPJbAzG4U5fGr6SmQnBAdSN0r6lzQcY34Zx1Jrf6KVrB4w43EW6DIwuj7BfuLo6gkkGVzuXQ1XGmEYC7faYrJJhzTCEt5R_o_2DjSCoxhvbcX6hSY1zAKuafsDcQfa2Gx8vwLj8MIsAB6EjyUSytKNVQTpQ9jioiDDOvZ9lZXqpR5sbL7t6GcilIjcb2tDjHUYLREKczUxfZa7iEuetfYTyLSsKUhpNO3rrD1XaeumSOpFXc3qC_GQzGPmUdNRyvm3_K-Rys64igPGZSIbeU8gJswLU7n6VOK_PBgDPCuFdT8x6Tfg-_EmfS0yhhjdRw89aYCZTh3KX2rApIpZgNo7cinmabon2hKD2vbCeCcwyj6K4tlDKIs9g_XOen5jF0eoqaKHQy0dWe5155EMC_qkxrnWzRDu4JxaDk9eT9FTZSNunERNC3PhnhW5e7b0fR0a5yxeFfKWDCWN5DELEsV42WQ5AFFjbvVf5o=w307-h224-no"
+              class="columnImg">
+          </div>
+
+          <div class="column tweetimage round-right">
+            <img
+              src="https://lh3.googleusercontent.com/_9UWWDsu0PKJ-_hvWDCL77tTFMt7yOHmfddDdXdIPyJUyX-Sf3xZQnXUDyupDXMt2w56Cg-XcwTs-Tv7xFtJb8gGLwi8ga5B5KASk9xmYf2jrf-F5YncRten0b71-hpHCwjoPNhocCadAFfJxDkTiWDwNaWkDQtgai4-vCbig8VKzbD79acGSar71XW3PuVMYlR5vYXIUcCKYjsrPW8pA7MgVqYYBS_rLf65NSyuuu-R6_uyGRjda_MTnJgrU6wajDKIdFDHwf2ROn0IrBbRE7-wwCa6YqWM7j1HB99eyv2xQavPPoxnRU-x9Z1AmWlrcZLEOWrUTeXdQEigcQ-4_-nJcPYU-qQkD7xB0v3gWlZ07BnutRzJdH2NS16XrC1zkwXUexoFMUMiyP6uQf-ZkiiTgQkY2hMe4W4TH3bWqW6Q-LkiW2YLmUAV8ZJBy0Y-2OcLqorI4paJhtQGG15Au924K-wW-IJ7nUvgKxGqJpKj-kq3uroe3z1yYvrLHL45dGiFQq_wDGsQZPKW9MCeNu47Tad7-J2BtggNx_qLWBnDYZViR_OILibxSGfcVNc7YWkcrUgki5G_Rc_jwd4sQ2XVzDE9GoMo-PWsDoJMIWzpcnloiPo5DnBLMuWeAyVHK95toTDiUKyvuor8xEen47TUAgz_TRsBDugIeiH9FVOsxhppF1SKQ7M=w687-h915-no"
+              class="columnImg round-top-right">
+            <img
+              src="https://lh3.googleusercontent.com/5COpuvvdA0LNiWFPeye9JYnEPbAvtRNJYsV7YYP-6896L0W4g2jO4s0uNNBlqFZ0mjzaSm6dLm4D1gwv-a-ZApXnGj341t4vAAi-nk8TzPT2x1Z34H1tKueDymXwYQ6nAsqhBKM5VP40kHWEOvhBfQL_HDenJs792Hui8hj3TW2yf7o60k-gVlw2FEvDIk302XkwpUBKWeLl86xObyEW5WwU6wsFcNw97FnVzeORW_S8-f3RVBlZFvJWuCauakiLndOqTA97axIU63BjARvoF_IpcOS8Ar33xNVAhr1e7EkrqQ-vaYtb2AsQ4hLMdA9rAJZ4W5y0PqtRCvGZlZCtVIVwFK7XxvWZ3rcAY0M7r818Ji4RtdZMIYwhBnDX7rgXkH3YJlzvdByc4jPbXXMYnVaU57pds2yg8oOi6vDzNhqMarrRZ8VgyM57nyVJTmdtdfrGbPNmQ9zJWtCVGE8RCRV2xhqYqY_gFq5Pd_ol2AG4tvcpi1461phGqQnL8WKq1DFsoYALdxcnsSMaGyl1Rr6RLZhyUVHr5s8OZTeoFvnfvkSjPGfleHrLpUgnr6RiOCQ3UfhS1m1MjpoEJj0p7GsaPstLnXygI2jpahj1IkHDKhmHXg5a3ObNZtJ2rFn7QRiO6svwhFZu3bJCzvvcqYw06iF9XQOqYXEV1T0tEm1HnWAJMuwTEBk=w687-h915-no"
+              class="columnImg round-bottom-right">
+          </div>
+
+        </div>
+
+        <!-- Trend For you -->
+        <div class="box box1">
+          <h1 class="trend">Trends for you <i class="fas fa-cog float-right"></i> </h1>
+          <hr>
+          <p class="vietnam">Trending in CoderSchool</p>
+          <a href="#">
+            <h2 class="hashtag"> #ILoveYouChuonChuon</h2>
+          </a>
+          <p> 50.8k Tweets </p>
+          <hr>
+          <p class="vietnam">Trending in CoderSchool</p>
+          <a href="#">
+            <h2 class="hashtag"> #Javascript</h2>
+          </a>
+          <p> 49.7k Tweets </p>
+          <hr>
+          <a href="">Show more</a>
+        </div>
+
+        <div class="box box2">
+          <h1 class="trend">Who to follow</h1>
+          <hr>
+          <div class="profile1">
+            <div class="p py-0">
+              <img class="profileimg" src="https://icon-library.net/images/dog-png-icon/dog-png-icon-28.jpg">
+              <div class="profile-follow">
+                <p class="profile">Toddi <br /> @toddi</p>
+              </div>
+            </div>
+            <button class="btn btn-danger follow"> Follow </button>
+          </div>
+          <hr>
+          <div class="profile1 py-0">
+            <div class="p">
+              <img class="profileimg"
+                src="https://www.smalldogsacademy.com/wp-content/uploads/2018/07/squeeze-round.png">
+              <div class="profile-follow">
+                <p class="profile">Mimi <br /> @followmeme</p>
+              </div>
+            </div>
+            <button class="btn btn-danger follow"> Follow </button>
+          </div>
+
+        </div>
+
+      </div>
     </div>
+
   </div>
-</div>
 
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
-<script src="js/script.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  <script src="js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
 </html>
