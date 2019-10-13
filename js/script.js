@@ -2,7 +2,7 @@ let text = document.getElementById('text');
 let remain = document.getElementById('remain-letter');
 let tweet = document.getElementById('tweet');
 let reTweetModal = document.getElementById('myModal');
-
+let hashtags = [];
 const MAX_NUM = 140;
 
 text.addEventListener('keyup', countRemain);
@@ -22,8 +22,8 @@ function showReTweetModal(id){
 		</button>
 		  </div>
 		  <div class="modal-body">
-			<p>What do you want to say about?</p>
-			<textarea placeholder="Chuon Chuon number 1?" autofocus autocomplete="off"
+			<p>Write something</p>
+			<textarea placeholder="Chuon Chuon #1" autofocus autocomplete="off"
 			class="form-control form-control-lg mb-3" id="retweet-Text"></textarea>
 				<div class="media tweet">
 				<img class="mr-3 rounded-circle" src="https://cdn.discordapp.com/attachments/631710535011794947/631713824793427980/ChuonChuon__.jpg" width="64" height="64" alt="avatar">
@@ -107,6 +107,7 @@ function insertLink(string) {
 	return splitString
 		.map(word => {
 			const isHashtag = word[0] === '#';
+			(isHashtag && !hashtags.includes(word)) ? hashtags.push(word) : null;
 			return isHashtag ? `<a href="#" onclick="magic('${word}')">${word}</a>` : word;
 		})
 		.join(' ');
@@ -141,15 +142,10 @@ function insertImage(string) {
 
 let tweetAppState = {};
 
-function getAppState() {
-	let newTweetsList = {
-		currentUsername: 'Chuon Chuon',
-		totalTweets: 2,
-		tweets: [],
-		reTweets: [],
-	};
-
-	tweetAppState = JSON.parse(localStorage.getItem('tweetsList')) || newTweetsList;
+async function getAppState() {
+	result = await fetch("https://api.myjson.com/bins/1gik1i")
+	tweetAppState = await result.json();
+	renderPerMin()
 }
 
 function saveAppState(appState) {
@@ -223,8 +219,16 @@ function renderTweets(tweetsArray) {
 		})
 		.join(''); //Remove ',' from the list
 	document.getElementById('tweets-list').innerHTML = html; //Get Element "tweets-list" and put the html code to that element"
+	renderHashTags(hashtags)
 	saveAppState(tweetAppState); // Save current AppState after every render
 }
+
+
+function renderHashTags(array){
+	let html = array.map(hashtag => `<a href="#" onclick="magic('${hashtag}')" id="hashtag"><mark class="d-flex my-1">${hashtag}</mark></a>`).join('')
+	document.getElementById("hashtag-render-area").innerHTML = html;
+}
+
 
 // remove tweets
 function remove(id, type) {
@@ -308,7 +312,6 @@ function magic(hashtags) { //filter the list with hashtag
 }
 
 //async forever rendering function
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -321,4 +324,3 @@ async function renderPerMin(){
 }
 
 getAppState(); //Get previous appstate in localstorage, if there none, create a new one.
-renderPerMin()
