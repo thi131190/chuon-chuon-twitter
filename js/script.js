@@ -8,11 +8,11 @@ const MAX_NUM = 140;
 text.addEventListener('keyup', countRemain);
 
 ///Modal show
-function showReTweetModal(id){
+function showReTweetModal(id) {
 	let isRetweeted = tweetAppState.reTweets.findIndex(retweet => retweet.id === id) != -1;
-	if(!isRetweeted){
-		let tweetcontent = tweetAppState.tweets.find(tweet => tweet.id === id)
-		reTweetModal.innerHTML=`
+	if (!isRetweeted) {
+		let tweetcontent = tweetAppState.tweets.find(tweet => tweet.id === id);
+		reTweetModal.innerHTML = `
 		<div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -38,11 +38,12 @@ function showReTweetModal(id){
 			<button type="button" class="btn btn-primary" onclick=reTweet(${tweetcontent.id})>ReTweet</button>
 		  </div>
 		</div>
-	  </div>`
-	}if(isRetweeted){
+	  </div>`;
+	}
+	if (isRetweeted) {
 		let fatherIndex = tweetAppState.reTweets.find(retweet => retweet.id === id).tweetID;
 		let fatherContent = tweetAppState.tweets.find(tweet => tweet.id === fatherIndex);
-		reTweetModal.innerHTML=`
+		reTweetModal.innerHTML = `
 		<div class="modal-dialog" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -68,13 +69,12 @@ function showReTweetModal(id){
 			<button type="button" class="btn btn-primary" onclick=reTweet(${fatherContent.id})>ReTweet</button>
 		  </div>
 		</div>
-	  </div>`
+	  </div>`;
 	}
-	$('#myModal').modal('show');	
+	$('#myModal').modal('show');
 }
 
 // count characters
-
 
 function countRemain() {
 	let remainLetter = MAX_NUM - text.value.length;
@@ -86,7 +86,7 @@ function countRemain() {
 			targets: '.main-tweet',
 			translateX: [+9, -9], // from 100 to 250
 			direction: 'alternate',
-		  });
+		});
 	} else if (text.value.length === 0) {
 		tweet.disabled = true;
 		remain.innerHTML = ``;
@@ -95,7 +95,7 @@ function countRemain() {
 			targets: '.main-tweet',
 			translateX: [+2, 0],
 			direction: 'alternate',
-		  });
+		});
 		remain.style.color = 'black';
 		remain.innerHTML = `<span class="remaining">Remaining letter is <span class="remain-num">${remainLetter}</span></span>`;
 		tweet.disabled = false;
@@ -107,8 +107,8 @@ function insertLink(string) {
 	return splitString
 		.map(word => {
 			const isHashtag = word[0] === '#';
-			(isHashtag && !hashtags.includes(word)) ? hashtags.push(word) : null;
-			return isHashtag ? `<a href="#" onclick="magic('${word}')">${word}</a>` : word;
+			isHashtag && !hashtags.includes(word) ? hashtags.push(word) : null;
+			return isHashtag ? `<a href="#" class="hashtag" onclick="magic('${word}')">${word}</a>` : word;
 		})
 		.join(' ');
 }
@@ -118,7 +118,7 @@ function insertMention(string) {
 	return splitString
 		.map(word => {
 			const isHashtag = word[0] === '@';
-			return isHashtag ? `<a href="#" onclick="magic2('${word}')">${word}</a>` : word;
+			return isHashtag ? `<a href="#" class="mention" onclick="magic2('${word}')">${word}</a>` : word;
 		})
 		.join(' ');
 }
@@ -127,7 +127,7 @@ function insertImage(string) {
 	const splitString = string.split(' ');
 	return splitString
 		.map(word => {
-			const isHashtag = word.includes(".png") || word.includes(".jpg") || word.includes(".gif");
+			const isHashtag = word.includes('.png') || word.includes('.jpg') || word.includes('.gif');
 			return isHashtag ? `<img href="#" src="${word}" width="400">` : word;
 		})
 		.join(' ');
@@ -143,9 +143,9 @@ function insertImage(string) {
 let tweetAppState = {};
 
 async function getAppState() {
-	result = await fetch("https://api.myjson.com/bins/1gik1i")
+	result = await fetch('https://api.myjson.com/bins/1gik1i');
 	tweetAppState = await result.json();
-	renderPerMin()
+	renderPerMin();
 }
 
 function saveAppState(appState) {
@@ -169,10 +169,16 @@ function renderTweets(tweetsArray) {
 
 				<p class="tweet-content">${insertImage(insertMention(insertLink(tweet.body)))}</p>
 				
-                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
-				<button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${
+					!tweet.isLiked ? 'far' : 'fas'
+				} fa-heart"></i></button>
+				<button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${
+					tweet.type
+				}')><i class="fas fa-trash-alt"></i></button>
 				<button class="btn btn-danger btn-sm float-right" mx-2 id="comment" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="far fa-comment"></i></button>
-				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${tweet.id})><i class="fas fa-retweet"></i></button>
+				<button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${
+					tweet.id
+				})><i class="fas fa-retweet"></i></button>
 				<hr>
 				<div class="collapse" id="collapseExample">
   					<div class="card-text mt-3 mb-2">
@@ -202,10 +208,16 @@ function renderTweets(tweetsArray) {
 					  <p>${insertImage(insertMention(insertLink(tweetAppState.tweets[index].body)))}</p>
 					</div>
 				  </div>
-				  <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${!tweet.isLiked ? "far" : "fas"} fa-heart"></i></button>
-				  <button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${tweet.type}')><i class="fas fa-trash-alt"></i></button>   
+				  <button class="btn btn-outline-danger btn-sm" id="like" onclick="like(${tweet.id})"><i class="${
+					!tweet.isLiked ? 'far' : 'fas'
+				} fa-heart"></i></button>
+				  <button class="btn btn-danger btn-sm float-right mx-2" id="delete" onclick=remove(${tweet.id},'${
+					tweet.type
+				}')><i class="fas fa-trash-alt"></i></button>   
 				  <button class="btn btn-danger btn-sm float-right" id="comment2" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2"><i class="far fa-comment"></i></button>  
-				  <button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${tweet.id})><i class="fas fa-retweet"></i></button>
+				  <button class="btn btn-danger btn-sm float-right mr-2" id="delete" onclick=showReTweetModal(${
+						tweet.id
+					})><i class="fas fa-retweet"></i></button>
 				  
 				  <div class="collapse" id="collapseExample2">
 					 <div class="card-text mt-3">
@@ -219,16 +231,19 @@ function renderTweets(tweetsArray) {
 		})
 		.join(''); //Remove ',' from the list
 	document.getElementById('tweets-list').innerHTML = html; //Get Element "tweets-list" and put the html code to that element"
-	renderHashTags(hashtags)
+	renderHashTags(hashtags);
 	saveAppState(tweetAppState); // Save current AppState after every render
 }
 
-
-function renderHashTags(array){
-	let html = array.map(hashtag => `<a href="#" onclick="magic('${hashtag}')" id="hashtag"><mark class="d-flex my-1">${hashtag}</mark></a>`).join('')
-	document.getElementById("hashtag-render-area").innerHTML = html;
+function renderHashTags(array) {
+	let html = array
+		.map(
+			hashtag =>
+				`<a href="#" onclick="magic('${hashtag}')" id="hashtag"><mark class="d-flex my-1">${hashtag}</mark></a>`
+		)
+		.join('');
+	document.getElementById('hashtag-render-area').innerHTML = html;
 }
-
 
 // remove tweets
 function remove(id, type) {
@@ -282,7 +297,7 @@ function reTweet(id) {
 			username: tweetAppState.currentUsername, //Get current username
 			tweetID: id,
 			tweetAt: Date.now(), //Get current time
-			body: document.getElementById("retweet-Text").value, //Get the value of the text input form
+			body: document.getElementById('retweet-Text').value, //Get the value of the text input form
 			isLiked: false,
 		};
 		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
@@ -297,7 +312,7 @@ function reTweet(id) {
 			username: tweetAppState.currentUsername, //Get current username
 			tweetID: fatherId,
 			tweetAt: Date.now(), //Get current time
-			body: document.getElementById("retweet-Text").value, //Get the value of the text input form
+			body: document.getElementById('retweet-Text').value, //Get the value of the text input form
 		};
 		tweetAppState.reTweets.unshift(newTweet); //Push new message to the top of array
 		remain.innerHTML = ``; //Clean the tweet remain
@@ -307,18 +322,24 @@ function reTweet(id) {
 	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Re-render the modified tweet list
 }
 
-function magic(hashtags) { //filter the list with hashtag
-	renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id).filter(tweet => tweet.body.includes(hashtags)))
+function magic(hashtags) {
+	//filter the list with hashtag
+	renderTweets(
+		tweetAppState.tweets
+			.concat(tweetAppState.reTweets)
+			.sort((a, b) => b.id - a.id)
+			.filter(tweet => tweet.body.includes(hashtags))
+	);
 }
 
 //async forever rendering function
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function renderPerMin(){
-	while(true){
-		renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object		
+async function renderPerMin() {
+	while (true) {
+		renderTweets(tweetAppState.tweets.concat(tweetAppState.reTweets).sort((a, b) => b.id - a.id)); //Call the function to render currently get from tweetAppState object
 		await sleep(60000);
 	}
 }
